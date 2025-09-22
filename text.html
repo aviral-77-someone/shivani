@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Special Day with Stylish Text</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background-attachment: fixed;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+    }
+
+    .text-item {
+      position: absolute;
+      font-weight: 900;
+      color: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      white-space: nowrap;
+      user-select: none;
+      line-height: 1.2;
+      pointer-events: none;
+      animation-fill-mode: forwards;
+      max-width: 90vw;
+    }
+
+    .size-huge {
+      font-size: 13vmin;
+    }
+    .size-big {
+      font-size: 11vmin;
+    }
+    .size-normal {
+      font-size: 8vmin;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 0.6;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOutDown {
+      0% {
+        opacity: 0.6;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const texts = [
+    "today is spical day for you and me!!!&#128525", 
+    "kyuki",                                
+    "aaj hai",                            
+    "meri",                               
+    "bhen ka",                           
+    "happy wala birthday!!!🥳🥳"         
+  ];
+
+  const positions = [
+    {left: '5vw', top: '10vh'},
+    {left: '8vw', top: '40vh'},
+    {left: '50vw', top: '20vh'},
+    {left: '30vw', top: '75vh'},
+    {left: '65vw', top: '65vh'},
+    {left: '5vw', top: '40vh'}
+  ];
+
+  const sizes = [
+    'size-normal',  // 1st
+    'size-big',     // 2nd
+    'size-big',     // 3rd
+    'size-big',     // 4th
+    'size-big',     // 5th
+    'size-huge'     // 6th
+  ];
+
+  let index = 0;
+  const body = document.body;
+
+  function showNextText() {
+    if (index >= texts.length) return;
+
+    const span = document.createElement('span');
+    span.textContent = texts[index];
+    span.classList.add('text-item', sizes[index]);
+
+    span.style.left = positions[index].left;
+    span.style.top = positions[index].top;
+
+    body.appendChild(span);
+
+    span.style.animation = 'fadeInUp 0.5s forwards ease';
+
+    setTimeout(() => {
+      span.style.animation = 'fadeOutDown 0.5s forwards ease';
+      setTimeout(() => {
+        body.removeChild(span);
+      }, 500);
+    }, 1800);
+
+    index++;
+
+    if (index < texts.length) {
+      setTimeout(showNextText, 2300);
+    } else {
+    
+      setTimeout(() => {
+        window.location.href = "hea.html";
+      }, 1000);
+    }
+  }
+
+  showNextText();
+</script>
+
+</body>
+</html>

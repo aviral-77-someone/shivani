@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3D Rotated Image Cards with Music + Button</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #4A90E2, #8E44AD, #E91E63);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .gallery {
+    position: relative;
+    width: 90vw;
+    max-width: 720px;
+    height: 60vw;
+    max-height: 480px;
+    perspective: 1100px;
+    margin-top: -30px;
+  }
+
+  .card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+    padding: 25px;
+    box-sizing: border-box;
+    transition: all 1.4s ease-in-out;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 60%);
+    border-radius: 18px;
+    z-index: 1;
+  }
+
+  .card .text {
+    position: relative;
+    z-index: 2;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    white-space: pre-line;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+  }
+
+  .left-start {
+    transform: translateX(-120vw) scale(0.85);
+  }
+  .right-start {
+    transform: translateX(120vw) scale(0.85);
+  }
+  .visible {
+    opacity: 1;
+    z-index: 10;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 15px; }
+    .card .text { font-size: 0.85rem; }
+  }
+
+  #musicPrompt {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1000;
+    user-select: none;
+    padding: 20px;
+  }
+
+  #linkButton {
+    display: none;
+    margin-top: 20px;
+    padding: 14px 36px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(101, 53, 255, 0.5);
+    text-decoration: none;
+    user-select: none;
+    transition: background 0.3s ease;
+    z-index: 2000;
+  }
+  #linkButton:hover {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+  }
+</style>
+</head>
+<body>
+
+<div class="gallery" id="gallery"></div>
+<br>
+<a id="linkButton" href="6.html">Next</a>
+<div id="musicPrompt">Tap anywhere to start background music</div>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="Espresso.mp3" type="audio/mpeg" />
+</audio>.
+
+<script>
+  const images = [
+    {url: "i2.jpg", text: " ''Billo teri aankh katal kare aankh katal''.\n kya mast nashili aakhen hai tumhari😁😁, \n kon sa nasha karti ho?🤨"},
+    {url: "i3.jpg", text: "Bhale he shakal se jitni bhi masum lagti ho,\nbut reality me bilkul nahi ho😅"},
+    {url: "i4.jpg", text: " well sirf masum nahi,\n cute,sundar,gorgeous and apsara jaisi bhi,\n (but sirf lagti ho,ho nahi.😁😅) "},
+    {url: "i5.jpg", text: "dekho dekho motape ka shikar bechari,\nthoda kam khaya karo🤓"},
+    {url: "i6.jpg", text: "Ab tumhari pagalpanti ki kya he baat kare...\nbut pata nhi kyu tumhari ye harkat muhje acchi lagti hai.🤗😊\n(ek bar mental hospital me checkup kara lo😁)"},
+    {url: "i7.jpg", text: "school me to dara dhamka k rakhti thi,\naur thoda ulta sidha bolne pe ek laga bhi deti thi🥺🥺,\n(ab laga k dikhao😎)"},
+    {url: "i8.jpg", text: "u know tumhari sabse acchi cheez kya hai?,\nu care about everyone and love ur friends,🥰🥰\n(aur muhje to dadti bhi ho, aur samjhati bhi ho, dost ho, par maa bani baithi ho)"},
+    {url: "i9.jpg", text: "in the end 'Happiest birthday SHIVANI'\nI hope tum hamesha utni he khush raho jitna ye padhte samay ho🤗🤗🤗\n(i pray isse bhi millions of time zada khush raho)"}
+  ];
+
+  const gallery = document.getElementById('gallery');
+
+  images.forEach((img, i) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.style.backgroundImage = `url(${img.url})`;
+    card.classList.add(i % 2 === 0 ? 'left-start' : 'right-start');
+
+    const textDiv = document.createElement('div');
+    textDiv.classList.add('text');
+    textDiv.innerText = img.text;
+    card.appendChild(textDiv);
+
+    gallery.appendChild(card);
+
+    const randomAngle = (Math.random() * 30) - 15;
+
+    setTimeout(() => {
+      card.classList.remove('left-start', 'right-start');
+      card.classList.add('visible');
+      card.style.transform = `translateX(0) translateY(-20px) scale(1) rotate(${randomAngle}deg)`;
+    }, i * 9000);
+  });
+
+  const music = document.getElementById('bgMusic');
+  const prompt = document.getElementById('musicPrompt');
+
+  music.load();
+
+  function startMusic() {
+    music.volume = 0.35;
+    if (music.readyState >= 1) {
+      music.currentTime = 7;
+      music.play().catch(() => {});
+    } else {
+      music.addEventListener('loadedmetadata', () => {
+        music.currentTime = 7;
+        music.play().catch(() => {});
+      });
+    }
+    prompt.style.display = 'none';
+    window.removeEventListener('click', startMusic);
+    window.removeEventListener('touchstart', startMusic);
+  }
+
+  window.addEventListener('click', startMusic);
+  window.addEventListener('touchstart', startMusic);
+setTimeout(() => {
+  document.getElementById('linkButton').style.display = 'inline-block';
+}, 9000 * 8); // 52,000
+
+</script>
+
+</body>
+</html>

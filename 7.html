@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Funny Choice</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: sans-serif;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+    }
+
+    button {
+      position: absolute;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #noBtn {
+      background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+      color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #yesBtn {
+     background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+      color: white;
+      bottom: 20px;
+display: none;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 600px) {
+      button {
+        font-size: 1.5rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="margin-bottom: 20px;">accha laga?&#128522</h1>
+
+  <div class="container">
+    <button id="noBtn">Bilkul nahi&#128514&#128514</button>
+    <button id="yesBtn" onClick="h()">Han bahut&#128517&#128517</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    function moveButton() {
+      const container = document.querySelector(".container");
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      const maxX = container.clientWidth - btnWidth;
+      const maxY = container.clientHeight - btnHeight;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("click", moveButton);
+    setTimeout(() => {
+      yesBtn.style.display = "block";
+    }, 8000);
+	function h() {alert(' khushi hui jaan k');}
+
+  </script>
+
+</body>
+</html>

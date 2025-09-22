@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>birthday</title>
+  <style>
+    body {
+	
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+  overflow: hidden;
+	background-size:cover;
+}
+
+.stars {
+  width: 4px;
+  height: 4px;
+  border-radius:6px;
+  position: absolute;
+  background: white;
+  box-shadow: 2vw 5vh 2px white, 10vw 8vh 2px white, 15vw 15vh 1px white,
+    22vw 22vh 1px white, 28vw 12vh 2px white, 32vw 32vh 1px white,
+    38vw 18vh 2px white, 42vw 35vh 1px white, 48vw 25vh 2px white,
+    53vw 42vh 1px white, 58vw 15vh 2px white, 63vw 38vh 1px white,
+    68vw 28vh 2px white, 73vw 45vh 1px white, 78vw 32vh 2px white,
+    83vw 48vh 1px white, 88vw 20vh 2px white, 93vw 52vh 1px white,
+    98vw 35vh 2px white, 5vw 60vh 1px white, 12vw 65vh 2px white,
+    18vw 72vh 1px white, 25vw 78vh 2px white, 30vw 85vh 1px white,
+    35vw 68vh 2px white, 40vw 82vh 1px white, 45vw 92vh 2px white,
+    50vw 75vh 1px white, 55vw 88vh 2px white, 60vw 95vh 1px white,
+    65vw 72vh 2px white, 70vw 85vh 1px white, 75vw 78vh 2px white,
+    80vw 92vh 1px white, 85vw 82vh 2px white, 90vw 88vh 1px white,
+    95vw 75vh 2px white;
+  animation: twinkle 0.5s infinite linear;
+}
+
+.shooting-star {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(0deg, white, transparent);
+  animation: shoot 3s infinite ease-in;
+}
+
+.shooting-star:nth-child(1) {
+  top: 10%;
+  left: -93px;
+  animation-delay: 0s;}
+.shooting-star:nth-child(6) {
+  top: 15%;
+  left: -95px;
+  animation-delay: 0.8s;}
+
+.shooting-star:nth-child(4) {
+  top: 28%;
+  left: -99px;
+  animation-delay: 1.5s;}
+
+
+
+.shooting-star:nth-child(3) {
+  top: -15%;
+  left: -95px;
+  animation-delay: 2.9s;
+}
+
+.shooting-star:nth-child(5) {
+  top: 50%;
+  left: -94px;
+  animation-delay: 3.4s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(0) translateY(0) rotate(25deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw) translateY(50vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+.stars::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  box-shadow: 8vw 12vh 2px white, 16vw 18vh 1px white, 24vw 25vh 2px white,
+    33vw 15vh 1px white, 41vw 28vh 2px white, 49vw 35vh 1px white,
+    57vw 22vh 2px white, 65vw 42vh 1px white, 73vw 28vh 2px white,
+    81vw 48vh 1px white, 89vw 32vh 2px white, 97vw 45vh 1px white,
+    3vw 68vh 2px white, 11vw 75vh 1px white, 19vw 82vh 2px white,
+    27vw 88vh 1px white, 35vw 72vh 2px white, 43vw 85vh 1px white,
+    51vw 92vh 2px white, 59vw 78vh 1px white;
+  animation: twinkle 0.5s infinite linear reverse;
+}	
+
+    #heartSvg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60vmin; /* increased size */
+      height: 60vmin;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: transform 1.8s ease-in-out;
+      filter: drop-shadow(0 0 0.4vmin #990000); /* slightly darker glow */
+    }
+
+    #heartSvg.zoomed {
+      animation: zoomHeart 1.8s forwards ease-in-out;
+    }
+
+    #overlayText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: sans-serif;
+      font-size: 4vmin;
+      text-align: center;
+      color: #f5f5f5;
+      text-shadow: 0 0 0.3vmin #000;
+      pointer-events: none;
+    }
+
+    #heartSvg.zoomed + #overlayText {
+      display: none;
+    }
+
+    @keyframes zoomHeart {
+      to {
+        transform: translate(-50%, -50%) scale(10);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+  <!-- Heart Shape SVG -->
+  <svg id="heartSvg" viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="heartGradient" cx="50%" cy="40%" r="60%">
+        <stop offset="0%" stop-color="#e63939"/>     <!-- darker red -->
+        <stop offset="70%" stop-color="#990000"/>    <!-- darker mid red -->
+        <stop offset="100%" stop-color="#440000"/>   <!-- very dark red -->
+      </radialGradient>
+    </defs>
+    <path fill="url(#heartGradient)" d="
+      M23.6,0c-3.4,0-6.4,2.1-7.6,5.1C14.8,2.1,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
+      c0,4.9,4.4,8.8,11.1,14.7c1.7,1.5,3.5,3,5.3,4.5c1.8-1.5,3.6-3,5.3-4.5
+      C27.6,17.2,32,13.3,32,8.4C32,3.8,28.2,0,23.6,0z"/>
+  </svg>
+
+  <!-- Overlay Text -->
+  <div id="overlayText">Click to enter<br>my heart</div>
+
+  <script>
+    const heart = document.getElementById('heartSvg');
+    const text = document.getElementById('overlayText');
+
+    function enterHeart() {
+      heart.classList.add('zoomed');
+      text.style.display = 'none';
+      setTimeout(() => {
+        window.location.href = '5.html';
+      }, 1800);
+    }
+
+    heart.addEventListener('click', enterHeart);
+    heart.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        enterHeart();
+      }
+    });
+  </script>
+
+</body>
+</html>
